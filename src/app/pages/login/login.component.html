@@ -1,1 +1,80 @@
-<p>login works!</p>
+<app-header/>
+<app-hero-section pageTitle="Login" />
+<!--===== CONTACT PAGE SEC START =======-->
+
+<div class="contact-page-sec sp">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="form-area">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="single-input">
+                  <label>Username*</label>
+                  <input type="text" id="username" formControlName="username" placeholder="Enter your username" [class.is-invalid]="username?.invalid && username?.touched">
+                  @if (username?.invalid && username?.touched) {
+                    <div class="invalid-feedback d-block">
+                      @if (username?.errors?.['required']) {
+                        <span>Username is required</span>
+                      }
+                      @if (username?.errors?.['minlength']) {
+                        <span>Username must be at least 3 characters</span>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="single-input">
+                  <label>Password*</label>
+                  <input type="password" id="password" formControlName="password" placeholder="Enter your password" [class.is-invalid]="password?.invalid && password?.touched">
+                  @if (password?.invalid && password?.touched) {
+                    <div class="invalid-feedback d-block">
+                      @if (password?.errors?.['required']) {
+                        <span>Password is required</span>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="space30"></div>
+                <button
+                  type="submit"
+                  class="theme-btn1"
+                  [disabled]="form.invalid || isLoading"
+                >
+                  Get Started <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </button>
+              </div>
+              <div class="col-md-6">
+                <div class="space45"></div>
+                <a href="/register" class="align-content-end">Create Account? <span class="arrow"></span></a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="heading1">
+          <span class="span"><img src="assets/img/icons/span-icon1.png" alt=""> Login</span>
+          <h2>Get in Contact for Wilderness Wisdom Touch with Us</h2>
+          <div class="space16"></div>
+          <p>Ready to start your next outdoor adventure? Have questions about our membership plans or services? Feel free to reach out to us! Our team of outdoor enthusiasts is here to assist you every step of the way.</p>
+          <div class="space16"></div>
+          <p> Whether you're seeking expert advice on fishing gear, planning a guided hunting trip, or simply want to connect with like-minded individuals, </p>
+          <div class="space30"></div>
+
+          <div class="space30"></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<!--===== CONTACT PAGE SEC START =======-->
+<app-footer/>

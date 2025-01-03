@@ -6,6 +6,7 @@ import {AboutComponent} from "../../components/home/about/about.component";
 import {PricingComponent} from "../../components/home/pricing/pricing.component";
 import {FaqComponent} from "../../components/home/faq/faq.component";
 import {FooterComponent} from "../../layouts/footer/footer.component";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ import {FooterComponent} from "../../layouts/footer/footer.component";
     AboutComponent,
     PricingComponent,
     FaqComponent,
-    FooterComponent
+    FooterComponent,
+    RouterLink
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
