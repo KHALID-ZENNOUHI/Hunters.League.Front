@@ -1,0 +1,62 @@
+<app-header></app-header>
+<app-hero-section pageTitle="Competitions"></app-hero-section>
+
+<div class="heading1 m-auto" *ngIf="!isDataLoading">
+  <div class="space16"></div>
+  <p data-aos="fade-left" data-aos-duration="800"> No competitions available. </p>
+</div>
+
+<div class="blog-page-all sp" *ngIf="isDataLoading">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6" *ngFor="let comp of competition">
+        <div class="blog-box">
+          <div class="image">
+            <img src="assets/img/blog/blog-page-img1.png" alt="Competition Image">
+          </div>
+          <div class="heading1">
+            <div class="tags">
+              <a href="#"><img src="assets/img/icons/blog-icon1.png" alt=""> {{ comp.date | date:'dd MMM yyyy' }}</a>
+              <i class="fa-solid fa-clock"></i>
+              {{ comp.date | date: 'shortTime' }}
+            </div>
+            <div class="blog-border"></div>
+            <i class="fa-solid fa-location-dot"></i>
+            {{ comp.location }}
+            <h5>
+                Code:
+                {{ comp.code }}.
+            </h5>
+            <div class="space16"></div>
+            <p>
+              Species Type:
+              {{ comp.speciesType }}.
+            </p>
+            <div class="space16"></div>
+            <a href="javascript:void(0)" class="learn">
+              {{ comp.openRegistration ? 'Registration Open' : 'Registration Closed' }}
+              <span class="arrow" *ngIf="comp.openRegistration"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space30"></div>
+    <div class="row">
+      <div class="col-12 m-auto">
+        <div class="theme-pagination text-center">
+          <ul>
+            <li (click)="page > 0 && onPageChange(page - 1)"><a ><i class="fa-solid fa-angle-left"></i></a></li>
+            <li><a class="active" >{{page + 1}}</a></li>
+            <li><a  >{{page + 2}}</a></li>
+            <li>...</li>
+            <li><a >{{totalPages}}</a></li>
+            <li (click)="page + 1 <= totalPages && onPageChange(page + 1)"><a ><i class="fa-solid fa-angle-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

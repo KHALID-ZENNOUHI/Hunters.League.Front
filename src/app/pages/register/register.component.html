@@ -74,7 +74,7 @@
               <div class="col-md-6">
                 <div class="single-input">
                   <label>License Expiration Date*</label>
-                  <input type="date" id="licenseExpirationDate" formControlName="licenseExpirationDate" placeholder="Enter your license expiration date" [class.is-invalid]="form.get('licenseExpirationDate')?.invalid && form.get('licenseExpirationDate')?.touched">
+                  <input type="datetime-local" id="licenseExpirationDate" formControlName="licenseExpirationDate" placeholder="Enter your license expiration date" [class.is-invalid]="form.get('licenseExpirationDate')?.invalid && form.get('licenseExpirationDate')?.touched">
                   @if (form.get('licenseExpirationDate')?.invalid && form.get('licenseExpirationDate')?.touched) {
                     <div class="invalid-feedback d-block">{{ getErrorMessage('licenseExpirationDate') }}</div>
                   }
@@ -93,6 +93,13 @@
               <div class="col-md-6">
                 <div class="space45"></div>
                 <a href="/login" class="align-content-end">Get Started? <span class="arrow"></span></a>
+              </div>
+              <div class="col-md-6">
+                <div class="space30"></div>
+                <div class="alert alert-danger" *ngIf="errorMessage">
+                  <i class="bi bi-exclamation-circle me-2"></i>
+                  {{ errorMessage }}
+                </div>
               </div>
             </div>
           </form>

@@ -17,13 +17,19 @@ import { AuthService } from '../../services/auth/auth.service';
     ReactiveFormsModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   Register: string | undefined;
   form: FormGroup;
   errorMessage: string = '';
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  backendErrors: Record<string, string> = {};
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.form = this.fb.group({
       username: new FormControl('', [Validators.required, Validators.minLength(6)]),
       firstName: new FormControl('', [Validators.required]),
@@ -43,18 +49,25 @@ export class RegisterComponent {
           this.router.navigate(['login']);
         },
         error: (error: any) => {
-          this.errorMessage = '';
+          this.errorMessage = 'Registration failed';
           if (error.error) {
-            const backendErrors = error.error;
-            Object.keys(backendErrors).forEach(key => {
-              this.errorMessage += `${key}: ${backendErrors[key]}\n`;
-            });
-          } else {
-            this.errorMessage = 'Registration failed';
+            this.mapBackendErrors(error.error);
           }
         },
       });
     }
+  }
+
+  private mapBackendErrors(errors: Record<string, string>): void {
+    this.backendErrors = errors;
+
+    // Map backend errors to form controls
+    Object.keys(errors).forEach(field => {
+      const control = this.form.get(field);
+      if (control) {
+        control.setErrors({ backend: errors[field] });
+      }
+    });
   }
 
   futureDateValidator(control: FormControl): { [key: string]: any } | null {
@@ -79,6 +92,8 @@ export class RegisterComponent {
       return 'Invalid email address';
     } else if (control?.hasError('notFutureDate')) {
       return 'Date must be in the future';
+    } else if (control?.hasError('backend')) {
+      return control.getError('backend');
     }
     return '';
   }

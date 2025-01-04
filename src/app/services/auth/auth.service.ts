@@ -4,12 +4,13 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {loginSuccess, logout} from "../../store/user/user.actions";
 import {UserState} from "../../store/user/user.state";
 import { Store } from '@ngrx/store';
+import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:8080/api/auth/';
+  private baseUrl = `${environment.apiUrl}auth/`;
   user$ : Observable<UserState> = this.store.select('user');
 
   constructor(
