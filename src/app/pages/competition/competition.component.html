@@ -1,14 +1,24 @@
 <app-header></app-header>
 <app-hero-section pageTitle="Competitions"></app-hero-section>
 
-<div class="heading1 m-auto" *ngIf="!isDataLoading">
-  <div class="space16"></div>
-  <p data-aos="fade-left" data-aos-duration="800"> No competitions available. </p>
-</div>
-
-<div class="blog-page-all sp" *ngIf="isDataLoading">
+<div class="blog-page-all">
   <div class="container">
-    <div class="row">
+    <div class="space16"></div>
+    <div class="float-left">
+      <!-- Button to Open Modal for Creating a New Competition -->
+      <a class="theme-btn1" (click)="openModal()">Create Competition <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></a>
+      <div class="space16"></div>
+    </div>
+
+    <!-- No Competitions Available Message -->
+    <div class="heading1" *ngIf="!isDataLoading && competition.length === 0">
+      <h3 class="d-flex align-items-center justify-content-center" data-aos="fade-left" data-aos-duration="800">
+        No competitions available.
+      </h3>
+    </div>
+
+    <!-- Competition Cards -->
+    <div class="row" *ngIf="isDataLoading">
       <div class="col-lg-4 col-md-6" *ngFor="let comp of competition">
         <div class="blog-box">
           <div class="image">
@@ -17,46 +27,63 @@
           <div class="heading1">
             <div class="tags">
               <a href="#"><img src="assets/img/icons/blog-icon1.png" alt=""> {{ comp.date | date:'dd MMM yyyy' }}</a>
-              <i class="fa-solid fa-clock"></i>
-              {{ comp.date | date: 'shortTime' }}
+              <i class="fa-solid fa-clock"></i> {{ comp.date | date: 'shortTime' }}
             </div>
             <div class="blog-border"></div>
-            <i class="fa-solid fa-location-dot"></i>
-            {{ comp.location }}
-            <h5>
-                Code:
-                {{ comp.code }}.
-            </h5>
+            <i class="fa-solid fa-location-dot"></i> {{ comp.location }}
+            <h5>Code: {{ comp.code }}</h5>
             <div class="space16"></div>
-            <p>
-              Species Type:
-              {{ comp.speciesType }}.
-            </p>
+            <p>Species Type: {{ comp.speciesType }}</p>
             <div class="space16"></div>
-            <a href="javascript:void(0)" class="learn">
-              {{ comp.openRegistration ? 'Registration Open' : 'Registration Closed' }}
-              <span class="arrow" *ngIf="comp.openRegistration"><i class="fa-solid fa-arrow-right"></i></span>
+            <a href="javascript:void(0)" class="learn d-flex align-items-center justify-content-between">
+              <div class="d-inline">
+                {{ comp.openRegistration ? 'Registration Open' : 'Registration Closed' }}
+                <span class="arrow" *ngIf="comp.openRegistration"><i class="fa-solid fa-arrow-right"></i></span>
+              </div>
+              <div class="d-inline">
+                <button class="theme-btn2" (click)="openModal(comp)">
+                  <i class="fa-solid fa-pen"></i> Edit
+                </button>
+                <button class="theme-btn2" (click)="deleteCompetition(comp.id)">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </div>
             </a>
+<!--            <div class="space16"></div>-->
+
+            <!-- Buttons for Editing and Deleting -->
+
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Pagination -->
     <div class="space30"></div>
-    <div class="row">
+    <div class="row" *ngIf="isDataLoading">
       <div class="col-12 m-auto">
         <div class="theme-pagination text-center">
           <ul>
-            <li (click)="page > 0 && onPageChange(page - 1)"><a ><i class="fa-solid fa-angle-left"></i></a></li>
-            <li><a class="active" >{{page + 1}}</a></li>
-            <li><a  >{{page + 2}}</a></li>
-            <li>...</li>
-            <li><a >{{totalPages}}</a></li>
-            <li (click)="page + 1 <= totalPages && onPageChange(page + 1)"><a ><i class="fa-solid fa-angle-right"></i></a></li>
+            <li [class.disabled]="page === 0" (click)="page > 0 && onPageChange(page - 1)">
+              <a><i class="fa-solid fa-angle-left"></i></a>
+            </li>
+            <li><a class="active">{{ page + 1 }}</a></li>
+            <li [class.disabled]="page + 1 >= totalPages" (click)="page + 1 < totalPages && onPageChange(page + 1)">
+              <a><i class="fa-solid fa-angle-right"></i></a>
+            </li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal for Creating/Editing Competition -->
+<app-competition-modal
+  *ngIf="showModal"
+  [competition]="selectedCompetition"
+  (onSave)="saveCompetition($event)"
+  (onCancel)="closeModal()"
+></app-competition-modal>
 
 <app-footer></app-footer>
