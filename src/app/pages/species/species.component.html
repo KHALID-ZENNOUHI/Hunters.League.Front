@@ -1,0 +1,69 @@
+<app-header></app-header>
+<app-hero-section pageTitle="Species"></app-hero-section>
+<div class="about-page-service">
+  <div class="container">
+    <div class="space16"></div>
+    <div class="float-left">
+      <!-- Button to Open Modal for Creating a New Competition -->
+      <a class="theme-btn1" (click)="openModal()">Create Species <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></a>
+<!--      <div class="space16"></div>-->
+    </div>
+    <div class="heading1 m-auto text-center" *ngIf="!isDataLoading">
+      <div class="space16"></div>
+      <h4 data-aos="fade-left" data-aos-duration="800"> No species available! </h4>
+    </div>
+
+<!--    <div class="space30"></div>-->
+    <div class="row" *ngIf="isDataLoading">
+      <div class="col-lg-4 col-md-6" *ngFor="let spec of species">
+        <div class="service2-box" >
+          <div class="heading2">
+            <h4 class="text-truncate"> <a ><i [ngClass]="getIconClass(spec.category)" aria-hidden="true"></i>&nbsp; {{spec.name}}</a></h4>
+            <div class="space16"></div>
+            <p><i class="fa-solid fa-chart-line"></i> Difficulty: {{spec.difficulty}}</p>
+            <p><i class="fa-solid fa-weight-hanging"></i> Minimum Weight: {{spec.minimumWeight}}</p>
+            <p><i class="fa-solid fa-star"></i> Points: {{spec.points}}</p>
+            <div class="space20"></div>
+            <div class="d-flex align-items-center justify-content-between">
+              <a class="button" routerLink="/species">Read More <span class="arrow"><i class="fa-solid fa-angle-right"></i></span></a>
+              <div class="d-inline">
+
+                <div class="d-inline" (click)="openModal(spec)">
+                  <i class="fa-solid fa-pen"></i> Edit
+                </div>
+                &nbsp;
+                <div class="d-inline"  (click)="deleteSpecies(spec.id)">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space30"></div>
+  <div class="row">
+    <div class="col-12 m-auto">
+      <div class="theme-pagination text-center">
+        <ul>
+          <li (click)="page > 0 && onPageChange(page - 1)"><a ><i class="fa-solid fa-angle-left"></i></a></li>
+          <li><a class="active" >{{page + 1}}</a></li>
+          <li (click)="page + 1 <= totalPages && onPageChange(page + 1)"><a  >{{page + 2}}</a></li>
+          <li>...</li>
+          <li [class.disabled]="page + 1 >= totalPages" (click)="page + 1 < totalPages && onPageChange(totalPages)"><a >{{totalPages}}</a></li>
+          <li (click)="page + 1 <= totalPages && onPageChange(page + 1)"><a ><i class="fa-solid fa-angle-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="space30"></div>
+
+</div>
+<app-species-modal
+  *ngIf="showModal"
+  [species]="selectedSpecies"
+  (onSave)="saveSpecies($event)"
+  (onCancel)="closeModal()"
+></app-species-modal>
+<app-footer></app-footer>

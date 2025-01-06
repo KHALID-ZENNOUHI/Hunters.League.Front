@@ -4,6 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {CompetitionComponent} from "./pages/competition/competition.component";
 import {SpeciesComponent} from "./pages/species/species.component";
+import {UserComponent} from "./pages/user/user.component";
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'species',
     component: SpeciesComponent,
+  },
+  {
+    path: 'users',
+    component: UserComponent,
   },
   { path: '**', redirectTo: '' }
 ];
