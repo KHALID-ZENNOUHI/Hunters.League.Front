@@ -5,19 +5,16 @@
   <div class="container">
     <div class="space16"></div>
     <div class="float-left">
-      <!-- Button to Open Modal for Creating a New Competition -->
       <a class="theme-btn1" (click)="openModal()">Create Competition <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></a>
       <div class="space16"></div>
     </div>
 
-    <!-- No Competitions Available Message -->
     <div class="heading1" *ngIf="!isDataLoading && competition.length === 0">
       <h3 class="d-flex align-items-center justify-content-center" data-aos="fade-left" data-aos-duration="800">
         No competitions available.
       </h3>
     </div>
 
-    <!-- Competition Cards -->
     <div class="row" *ngIf="isDataLoading">
       <div class="col-lg-4 col-md-6" *ngFor="let comp of competition">
         <div class="blog-box">
@@ -50,15 +47,11 @@
               </div>
             </a>
 <!--            <div class="space16"></div>-->
-
-            <!-- Buttons for Editing and Deleting -->
-
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Pagination -->
     <div class="space30"></div>
     <div class="row" *ngIf="isDataLoading">
       <div class="col-12 m-auto">
@@ -68,6 +61,9 @@
               <a><i class="fa-solid fa-angle-left"></i></a>
             </li>
             <li><a class="active">{{ page + 1 }}</a></li>
+            <li [class.disabled]="page + 1 >= totalPages" (click)="page + 1 < totalPages && onPageChange(page + 1)"><a>{{ page + 2 }}</a></li>
+            <li>...</li>
+            <li [class.disabled]="page + 1 >= totalPages" (click)="page + 1 < totalPages && onPageChange(totalPages)"><a>{{ totalPages }}</a></li>
             <li [class.disabled]="page + 1 >= totalPages" (click)="page + 1 < totalPages && onPageChange(page + 1)">
               <a><i class="fa-solid fa-angle-right"></i></a>
             </li>

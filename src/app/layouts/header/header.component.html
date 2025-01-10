@@ -14,11 +14,18 @@
 
             <div class="main-menu-ex main-menu-ex1">
               <ul>
-                <li><a href="#">Home <i class="fa-solid fa-angle-down"></i></a>
+                <li><a href="#">Home </a>
+                </li>
+                <li class="dropdown-menu-parrent">
+                  <a href="#" class="main1">Species <i class="fa-solid fa-angle-down"></i></a>
+                  <ul>
+                    <li><a class="text-black" [routerLink]="['/species']" [queryParams]="{ category: 'BIRD' }">BIRD</a></li>
+                    <li><a class="text-black" [routerLink]="['/species']" [queryParams]="{ category: 'BIG_GAME' }">BIG_GAME</a></li>
+                    <li><a class="text-black" [routerLink]="['/species']" [queryParams]="{ category: 'SEA' }">SEA</a></li>
+                  </ul>
                 </li>
 
-                <li><a class="list-group-item list-group-item-action" href="#service">Service</a></li>
-                <li><a class="list-group-item list-group-item-action" href="#about">About</a></li>
+                <li><a class="list-group-item list-group-item-action" routerLink="/competitions">Competitions</a></li>
                 <li><a class="list-group-item list-group-item-action" href="#case">Case Study</a></li>
                 <li><a class="list-group-item list-group-item-action" href="#pricing">Pricing</a></li>
                 <li><a class="list-group-item list-group-item-action" href="#tes">Testimonial</a></li>

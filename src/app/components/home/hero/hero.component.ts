@@ -18,7 +18,7 @@ export class HeroComponent implements OnInit{
   }
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      this.title = 'Discover Our Competitions';
+      this.title = 'Discover More';
       this.url = 'competitions';
     }
   }

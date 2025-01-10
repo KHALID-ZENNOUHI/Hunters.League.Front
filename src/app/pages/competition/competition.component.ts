@@ -41,7 +41,7 @@ export class CompetitionComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log('Competition list:', response);
-          this.competition = response.content.map((comp: any) => ({
+          this.competition = response.content.map((comp: Competition) => ({
             id: comp.id,
             code: comp.code || '',
             date: comp.date || '',
